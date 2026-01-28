@@ -1,0 +1,239 @@
+/* ================= PAGE ================= */
+.page {
+  min-height: calc(100vh - 120px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at top, #0f1430, #05070f);
+}
+
+/* ================= GLOW ================= */
+.glow-wrapper {
+  position: relative;
+}
+
+.glow-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: -90px;
+  border-radius: 70px;
+  background:
+    radial-gradient(circle at left, rgba(79, 172, 254, 0.6), transparent 60%),
+    radial-gradient(circle at right, rgba(236, 72, 153, 0.6), transparent 60%);
+  filter: blur(55px);
+  z-index: 0;
+}
+
+/* ================= CARD ================= */
+.card {
+  position: relative;
+  z-index: 1;
+  width: min(1100px, 92vw);
+  padding: 38px 46px;
+  background: linear-gradient(180deg, #221c4a, #1b1740);
+  border-radius: 36px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 40px 90px rgba(0, 0, 0, 0.9);
+}
+
+/* Neon top line */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 48px;
+  right: 48px;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #4facfe, #a855f7, #ec4899);
+}
+
+/* ================= HEADER ================= */
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* ================= TABS ================= */
+.tabs {
+  display: flex;
+  gap: 10px;
+}
+
+.tab {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #fff;
+  padding: 9px 20px;
+  border-radius: 999px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.tab:hover {
+  background: rgba(255, 255, 255, 0.18);
+  transform: translateY(-1px);
+}
+
+.tab.active {
+  background: linear-gradient(135deg, #4facfe, #7b5cff);
+}
+
+/* ================= TABLE ================= */
+.table {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 22px;
+  padding: 18px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 12px 30px rgba(0, 0, 0, 0.45);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr auto;
+  align-items: center;
+  padding: 16px 18px;
+  border-radius: 16px;
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+
+.row:not(.header):hover {
+  background: rgba(123, 92, 255, 0.12);
+  transform: scale(1.01);
+}
+
+.row.header {
+  color: #9aa4ff;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* ================= INPUTS ================= */
+input {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: #fff;
+  font-size: 15px;
+  text-align: center;
+}
+
+input:focus {
+  outline: none;
+  border-bottom: 2px solid #4facfe;
+  box-shadow: 0 4px 14px rgba(79, 172, 254, 0.6);
+}
+
+.name-input {
+  max-width: 180px;
+  text-align: left;
+}
+
+/* ================= TOTAL ================= */
+.total {
+  font-weight: 800;
+  font-size: 1.2rem;
+  color: #4facfe;
+  text-shadow: 0 0 14px rgba(79, 172, 254, 0.7);
+}
+
+/* ================= DELETE ================= */
+.delete-btn {
+  background: transparent;
+  border: none;
+  color: #ec4899;
+  font-size: 18px;
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    color 0.15s ease;
+}
+
+.delete-btn:hover {
+  transform: scale(1.25);
+  color: #ff6aa2;
+}
+
+/* ================= ACTIONS ================= */
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 28px;
+}
+
+.primary,
+.secondary {
+  border: none;
+  border-radius: 999px;
+  padding: 12px 26px;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.primary {
+  background: linear-gradient(135deg, #7b5cff, #4facfe);
+}
+
+.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(123, 92, 255, 0.6);
+}
+
+.secondary {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.secondary:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+/* ================= POPUPS ================= */
+.result-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99;
+}
+
+.result-box {
+  background: linear-gradient(180deg, #221c4a, #1b1740);
+  padding: 34px 42px;
+  border-radius: 28px;
+  text-align: center;
+  color: #fff;
+  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.9);
+}
+
+.result-box h3 {
+  margin-bottom: 18px;
+  font-size: 1.6rem;
+}
+
+.result-box p {
+  margin: 10px 0;
+  font-size: 1.1rem;
+}

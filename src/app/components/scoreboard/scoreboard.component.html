@@ -1,0 +1,81 @@
+<div class="page">
+  <div class="glow-wrapper">
+    <div class="card">
+      <div class="card-head">
+        <h2 class="card-title">Poengtavle</h2>
+
+        <div class="tabs">
+          <button class="tab active">Poengtavle</button>
+          <button class="tab" (click)="nyRunde()">Ny runde</button>
+          <button class="tab" (click)="visRegler = true">Regler</button>
+        </div>
+      </div>
+
+      <!-- Kalender -->
+      <div style="margin-bottom: 16px">
+        <label style="color: #9aa4ff; font-size: 14px">Spilldato:</label>
+        <input type="date" [(ngModel)]="spillDato" />
+      </div>
+
+      <!-- TABELL -->
+      <div class="table">
+        <div class="row header">
+          <span>Navn</span>
+          <span>1. kast</span>
+          <span>2. kast</span>
+          <span>Total</span>
+          <span></span>
+        </div>
+
+        <div class="row" *ngFor="let s of spillere; let i = index">
+          <input class="name-input" type="text" [(ngModel)]="s.navn" placeholder="Spillernavn" />
+
+          <input type="number" [(ngModel)]="s.kast1" />
+          <input type="number" [(ngModel)]="s.kast2" />
+
+          <span class="total">{{ getTotal(s) }}</span>
+
+          <!-- DELETE -->
+          <button class="delete-btn" (click)="fjernSpiller(i)">✖</button>
+        </div>
+      </div>
+
+      <!-- ACTIONS -->
+      <div class="actions">
+        <button class="secondary" (click)="leggTilSpiller()">+ Ny spiller</button>
+        <button class="primary" (click)="lagreResultater()">Lagre resultater</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REGEL-POPUP (riktig plassering) -->
+<div class="result-backdrop" *ngIf="visRegler">
+  <div class="result-box">
+    <h3>📘 Spilleregler</h3>
+
+    <p>• Hver spiller starter med <strong>2 poeng</strong>.</p>
+    <p>• Hver runde består av <strong>to kast</strong>.</p>
+    <p>• Totalpoeng = kast 1 + kast 2 + 2.</p>
+    <p>• Knappen <strong>Ny runde</strong> nullstiller kastene.</p>
+
+    <button class="primary" (click)="visRegler = false">Lukk</button>
+  </div>
+</div>
+<!-- RESULTAT-POPUP -->
+<div class="result-backdrop" *ngIf="visResultat">
+  <div class="result-box">
+    <h3>🏆 Resultater</h3>
+
+    <div *ngFor="let p of ranking; let i = index">
+      <p *ngIf="i < 3">
+        <strong>
+          {{ i === 0 ? '🥇 Første' : i === 1 ? '🥈 Andre' : '🥉 Tredje' }}
+        </strong>
+        – {{ p.navn }} ({{ p.total }} poeng)
+      </p>
+    </div>
+
+    <button class="primary" (click)="visResultat = false">Lukk</button>
+  </div>
+</div>
