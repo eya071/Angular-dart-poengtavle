@@ -11,10 +11,15 @@
         </div>
       </div>
 
-      <!-- Kalender -->
+      <!-- Spilldato -->
       <div style="margin-bottom: 16px">
         <label style="color: #9aa4ff; font-size: 14px">Spilldato:</label>
         <input type="date" [(ngModel)]="spillDato" />
+      </div>
+
+      <!-- Excel import -->
+      <div style="margin-bottom: 16px">
+        <input type="file" (change)="onFileChange($event)" />
       </div>
 
       <!-- TABELL -->
@@ -29,13 +34,9 @@
 
         <div class="row" *ngFor="let s of spillere; let i = index">
           <input class="name-input" type="text" [(ngModel)]="s.navn" placeholder="Spillernavn" />
-
           <input type="number" [(ngModel)]="s.kast1" />
           <input type="number" [(ngModel)]="s.kast2" />
-
           <span class="total">{{ getTotal(s) }}</span>
-
-          <!-- DELETE -->
           <button class="delete-btn" (click)="fjernSpiller(i)">✖</button>
         </div>
       </div>
@@ -44,24 +45,24 @@
       <div class="actions">
         <button class="secondary" (click)="leggTilSpiller()">+ Ny spiller</button>
         <button class="primary" (click)="lagreResultater()">Lagre resultater</button>
+        <button class="primary" (click)="exportToExcel()">Eksporter til Excel</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- REGEL-POPUP (riktig plassering) -->
+<!-- REGEL-POPUP -->
 <div class="result-backdrop" *ngIf="visRegler">
   <div class="result-box">
     <h3>📘 Spilleregler</h3>
-
     <p>• Hver spiller starter med <strong>2 poeng</strong>.</p>
     <p>• Hver runde består av <strong>to kast</strong>.</p>
     <p>• Totalpoeng = kast 1 + kast 2 + 2.</p>
     <p>• Knappen <strong>Ny runde</strong> nullstiller kastene.</p>
-
     <button class="primary" (click)="visRegler = false">Lukk</button>
   </div>
 </div>
+
 <!-- RESULTAT-POPUP -->
 <div class="result-backdrop" *ngIf="visResultat">
   <div class="result-box">
