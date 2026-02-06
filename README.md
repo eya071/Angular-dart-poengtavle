@@ -1,31 +1,29 @@
 # 🎯 Angular Poengtavle (Dart Scoreboard)
 
 Dette prosjektet er en dart-poengtavle utviklet i Angular.
-Applikasjonen lar brukere registrere spillere, legge inn kast, beregne totalpoeng og vise resultater med rangering (1., 2. og 3. plass).
+Applikasjonen brukes til å registrere spillere, legge inn kast, beregne totalpoeng og vise resultater med rangering.
 
-## Prosjektet er utviklet som en del av praksisarbeid, med fokus på praktisk bruk av Angular, brukergrensesnitt, applikasjonslogikk og håndtering av data.
+Prosjektet er laget som en del av praksis, med fokus på praktisk bruk av Angular, strukturert kode og brukergrensesnitt.
 
 ## ✨ Funksjoner
 
-➕ Legg til og fjern spillere
+-Legge til og fjerne spillere
 
-🎯 Registrer to kast per spiller
+-Registrere to kast per spiller
 
-🔢 Totalpoeng starter på 2 (spilleregel)
+-Automatisk beregning av totalpoeng
 
-🔄 Start ny runde (nullstiller kastene)
+-Starte ny runde (nullstiller kast)
 
-🏆 Lagre resultater og vise 1., 2. og 3. plass
+-Vise topp 3-plasseringer
 
-📅 Velg spilldato med kalender
+-Velge spilldato
 
-📘 Popup med spilleregler
+-Vise spilleregler i popup
 
-📥 Import av spillere og poeng fra Excel
+-Importere spillere og poeng fra Excel
 
-📤 Eksport av resultater til Excel
-
-🎨 Moderne design med glow-effekter
+-Eksportere resultater til Excel
 
 ---
 
@@ -40,15 +38,15 @@ Applikasjonen lar brukere registrere spillere, legge inn kast, beregne totalpoen
 
 ## 🛠️ Teknologi brukt
 
-Angular (standalone components og signals)
+-Angular (standalone components og signals)
 
-TypeScript
+-TypeScript
 
-HTML & CSS
+-HTML og CSS
 
-Angular Forms
+-Angular Forms
 
-XLSX (for Excel-import og eksport)
+-XLSX (Excel-import og eksport)
 
 ---
 
