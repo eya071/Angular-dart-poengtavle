@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import * as XLSX from 'xlsx';
@@ -18,7 +18,9 @@ interface Player {
 })
 export class ScoreboardComponent {
   spillDato: string = new Date().toISOString().substring(0, 10);
-  spillere: Player[] = [{ navn: 'Spiller 1', kast1: 0, kast2: 0 }];
+
+  //  SIGNAL
+  spillere = signal<Player[]>([]);
 
   visRegler = false;
   visResultat = false;
@@ -29,29 +31,26 @@ export class ScoreboardComponent {
   }
 
   leggTilSpiller() {
-    this.spillere.push({ navn: '', kast1: 0, kast2: 0 });
+    this.spillere.update((list) => [...list, { navn: '', kast1: 0, kast2: 0 }]);
   }
 
   fjernSpiller(index: number) {
-    this.spillere.splice(index, 1);
+    this.spillere.update((list) => list.filter((_, i) => i !== index));
   }
 
   nyRunde() {
-    this.spillere.forEach((s) => {
-      s.kast1 = 0;
-      s.kast2 = 0;
-    });
+    this.spillere.update((list) => list.map((s) => ({ ...s, kast1: 0, kast2: 0 })));
   }
 
   lagreResultater() {
-    this.ranking = [...this.spillere]
+    this.ranking = [...this.spillere()]
       .map((s) => ({ ...s, total: this.getTotal(s) }))
       .sort((a, b) => b.total - a.total);
 
     this.visResultat = true;
   }
 
-  //  IMPORT FRA EXCEL
+  //  IMPORT FRA EXCEL (SIGNALS-STYLE)
   onFileChange(event: any) {
     const file = event.target.files[0];
     if (!file) return;
@@ -60,24 +59,25 @@ export class ScoreboardComponent {
 
     reader.onload = (e: any) => {
       const workbook = XLSX.read(e.target.result, { type: 'array' });
-      const sheetName = workbook.SheetNames[0];
-      const sheet = workbook.Sheets[sheetName];
-
+      const sheet = workbook.Sheets[workbook.SheetNames[0]];
       const data: any[] = XLSX.utils.sheet_to_json(sheet);
 
-      this.spillere = data.map((d) => ({
-        navn: d.navn || '',
+      const importedPlayers: Player[] = data.map((d) => ({
+        navn: d.navn ?? '',
         kast1: Number(d.kast1) || 0,
         kast2: Number(d.kast2) || 0,
       }));
+
+      // 🔥 ÉN oppdatering → alltid riktig UI
+      this.spillere.set(importedPlayers);
     };
 
     reader.readAsArrayBuffer(file);
   }
 
-  //  EKSPORT TIL EXCEL
+  // 📤 EKSPORT TIL EXCEL
   exportToExcel() {
-    const data = this.spillere.map((s) => ({
+    const data = this.spillere().map((s) => ({
       navn: s.navn,
       kast1: s.kast1,
       kast2: s.kast2,
