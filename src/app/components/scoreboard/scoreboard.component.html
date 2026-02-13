@@ -36,7 +36,14 @@
         </div>
 
         <div class="row" *ngFor="let s of spillere(); let i = index">
-          <input class="name-input" type="text" [(ngModel)]="s.navn" placeholder="Spillernavn" />
+          <input
+            #nameInput
+            class="name-input"
+            type="text"
+            [(ngModel)]="s.navn"
+            placeholder="Spillernavn"
+            (keydown.enter)="focusNext(i)"
+          />
           <input type="number" [(ngModel)]="s.kast1" />
           <input type="number" [(ngModel)]="s.kast2" />
           <span class="total">{{ getTotal(s) }}</span>

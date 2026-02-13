@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ViewChildren, QueryList, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import * as XLSX from 'xlsx';
@@ -19,12 +19,23 @@ interface Player {
 export class ScoreboardComponent {
   spillDato: string = new Date().toISOString().substring(0, 10);
 
-  //  SIGNAL
   spillere = signal<Player[]>([]);
 
   visRegler = false;
   visResultat = false;
   ranking: any[] = [];
+
+  // 🔹 For moving focus to next name input
+  @ViewChildren('nameInput') nameInputs!: QueryList<ElementRef>;
+
+  focusNext(index: number) {
+    const inputs = this.nameInputs.toArray();
+    const nextInput = inputs[index + 1];
+
+    if (nextInput) {
+      nextInput.nativeElement.focus();
+    }
+  }
 
   getTotal(s: Player): number {
     return s.kast1 + s.kast2 + 2;
@@ -50,7 +61,6 @@ export class ScoreboardComponent {
     this.visResultat = true;
   }
 
-  //  IMPORT FRA EXCEL (SIGNALS-STYLE)
   onFileChange(event: any) {
     const file = event.target.files[0];
     if (!file) return;
@@ -68,14 +78,12 @@ export class ScoreboardComponent {
         kast2: Number(d.kast2) || 0,
       }));
 
-      // 🔥 ÉN oppdatering → alltid riktig UI
       this.spillere.set(importedPlayers);
     };
 
     reader.readAsArrayBuffer(file);
   }
 
-  // 📤 EKSPORT TIL EXCEL
   exportToExcel() {
     const data = this.spillere().map((s) => ({
       navn: s.navn,

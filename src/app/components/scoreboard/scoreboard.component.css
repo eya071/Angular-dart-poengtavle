@@ -1,4 +1,4 @@
-/* ================= PAGE ================= */
+/* == PAGE === */
 .page {
   min-height: calc(100vh - 120px);
   display: flex;
@@ -7,7 +7,7 @@
   background: radial-gradient(circle at top, #0f1430, #05070f);
 }
 
-/* ================= GLOW ================= */
+/* == GLOW ===== */
 .glow-wrapper {
   position: relative;
 }
@@ -24,7 +24,7 @@
   z-index: 0;
 }
 
-/* ================= CARD ================= */
+/* === CARD ==== */
 .card {
   position: relative;
   z-index: 1;
@@ -154,7 +154,7 @@ input:focus {
   text-shadow: 0 0 14px rgba(79, 172, 254, 0.7);
 }
 
-/* ================= DELETE ================= */
+/* === DELETE === */
 .delete-btn {
   background: transparent;
   border: none;
@@ -171,7 +171,7 @@ input:focus {
   color: #ff6aa2;
 }
 
-/* ================= ACTIONS ================= */
+/* == ACTIONS == */
 .actions {
   display: flex;
   justify-content: space-between;
@@ -208,7 +208,7 @@ input:focus {
   background: rgba(255, 255, 255, 0.22);
 }
 
-/* ================= POPUPS ================= */
+/* = POPUPS = */
 .result-backdrop {
   position: fixed;
   inset: 0;
